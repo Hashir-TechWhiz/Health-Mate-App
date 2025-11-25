@@ -26,6 +26,18 @@ class HealthProvider extends ChangeNotifier {
           calories: 1950,
           water: 1000,
         ),
+        HealthRecord(
+          date: df.format(today.subtract(const Duration(days: 2))),
+          steps: 6200,
+          calories: 1800,
+          water: 1500,
+        ),
+        HealthRecord(
+          date: df.format(today.subtract(const Duration(days: 3))),
+          steps: 9100,
+          calories: 2300,
+          water: 2500,
+        ),
       ];
       for (final r in seeds) {
         await _db.insertRecord(r);
