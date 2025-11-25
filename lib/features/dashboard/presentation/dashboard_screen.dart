@@ -125,7 +125,6 @@ class DashboardScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // Steps and Calories Row - Use LayoutBuilder for responsive constraints
             LayoutBuilder(
               builder: (context, constraints) {
                 return Row(
@@ -160,7 +159,6 @@ class DashboardScreen extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            // Water Card (full width)
             _buildAnimatedMetricCard(
               title: 'Water',
               value: totals['water']?.toString() ?? '0',

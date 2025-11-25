@@ -21,16 +21,10 @@ class HealthProvider extends ChangeNotifier {
       final df = DateFormat('yyyy-MM-dd');
       final List<HealthRecord> seeds = [
         HealthRecord(
-          date: df.format(today),
-          steps: 8234,
-          calories: 2100,
-          water: 2200,
-        ),
-        HealthRecord(
           date: df.format(today.subtract(const Duration(days: 1))),
-          steps: 7521,
+          steps: 2521,
           calories: 1950,
-          water: 1800,
+          water: 1000,
         ),
       ];
       for (final r in seeds) {

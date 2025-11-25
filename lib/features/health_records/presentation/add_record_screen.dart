@@ -42,7 +42,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
           key: _formKey,
           child: ListView(
             children: [
-              // Date Picker Card
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
@@ -105,10 +104,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                         final picked = await showDatePicker(
                           context: context,
                           initialDate: _date,
-                          // firstDate: DateTime.now().subtract(
-                          //   const Duration(days: 365),
-                          // ),
-                          // lastDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now(),
                         );
@@ -191,17 +186,51 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState?.validate() != true) return;
+
+                    final formattedDate = DateFormat(
+                      'yyyy-MM-dd',
+                    ).format(_date);
+
+                    // Check if record already exists for today
+                    final exists = hp.records.any(
+                      (r) => r.date == formattedDate,
+                    );
+                    if (exists) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'A record for today already exists, try editing that record!',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+
                     final rec = HealthRecord(
-                      date: DateFormat('yyyy-MM-dd').format(_date),
+                      date: formattedDate,
                       steps: int.parse(_stepsCtrl.text),
                       calories: int.parse(_calCtrl.text),
                       water: int.parse(_waterCtrl.text),
                     );
+
                     await hp.addRecord(rec);
+
+                    // RESET FORM AFTER SUCCESS
+                    _formKey.currentState!.reset();
+                    _stepsCtrl.clear();
+                    _calCtrl.clear();
+                    _waterCtrl.clear();
+                    setState(() {
+                      _date = DateTime.now();
+                    });
+
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Record saved')),
+                      const SnackBar(
+                        content: Text('Record saved successfully!'),
+                      ),
                     );
                   },
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

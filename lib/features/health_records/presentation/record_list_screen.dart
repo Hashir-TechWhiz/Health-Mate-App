@@ -1,9 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 import '../../../models/health_record.dart';
-import '../../../providers/health_provider.dart';
 import '../../../constants/app_colors.dart';
+import '../../../providers/health_provider.dart';
 
 class RecordListScreen extends StatefulWidget {
   const RecordListScreen({super.key});
@@ -282,13 +282,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.circular(20),
-              // onTap: () async {
-              //   final edited = await showDialog<HealthRecord>(
-              //     context: context,
-              //     builder: (_) => _EditRecordDialog(record: r),
-              //   );
-              //   if (edited != null) await hp.updateRecord(edited);
-              // },
               onTap: () async {
                 if (isPast) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -313,7 +306,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
                 padding: const EdgeInsets.all(24),
                 child: Row(
                   children: [
-                    // Modern Date Badge
                     Container(
                       width: 80,
                       height: 80,
